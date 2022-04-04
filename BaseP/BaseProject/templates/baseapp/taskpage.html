@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends "../Base.html" %}
+{% block exit_block %}
+
+
+{% load static %}
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <title> مشخصات وظیفه اصلی </title>
+
+<style>
+    hr {
+        border-top: 1px ridge red;
+    }
+</style>
+
+  </head>
+  <body>
+    <h2> عنوان وظیفه: </h2>
+    <pre class="tab"><h3><em>                                              <u>{{ task.task_name }}</u></em></h3></pre>
+    <br>
+    <hr>
+    <h2> مسئول مرتبط: </h2>
+    <pre class="tab"><h3><em>                                              <u>{{ task.task_responsible }}</u> </em></h3></pre>
+    <br>
+    <hr>
+    <h2> عواقب مرتبط به انجام نادرست: </h2>
+    <pre class="tab"><h3><em>                                              <u>{{ task.task_priority }}</u> </em></h2></pre>
+    <br>
+    <hr>
+    <h2> زیروظایف مرتبط: </h2>
+    <a href="{% url 'baseapp:newsubtask1' task_id=task.task_id subtask1_id=max_subtask1_id %}"> اضافه کردن اولین زیرتسک </a></TD>
+         {% for subtask1 in subtasks1  %}
+             {% if subtask1.related_task.task_id == task.task_id %}
+             <TD>
+             <h4><a href="{% url 'baseapp:subtask1detail' task_id=task.task_id subtask1_id=subtask1.subtask1_id %}">{{task.task_id}}.{{subtask1.subtask1_id}}-{{subtask1.subtask1_name}} </a></TD></h4>
+              {% if perms.baseapp.change_subtasks1 %}
+                      {% if task.amendment_condition == False %}
+       <h5> <a href = "{% url 'baseapp:subtask1_improvement' task_id=task.task_id subtask1_id=subtask1.subtask1_id %}"> بررسی، تایید، رد، امتیازدهی و بروزرسانی زیر وظیفه </a> </h5>
+                      {% endif %}
+              {% endif %}
+             <h6><a href="{% url 'baseapp:newsubtask1' task_id=task.task_id subtask1_id=subtask1.subtask1_id %}"> اضافه کردن زیر تسک جدید </a></TD></h6>
+             {% endif %}
+         {% endfor %}
+    <br>
+    <hr>
+    <h4><a href = "{% url 'baseapp:tasks' %}"> لیست تسکها </a></h4>
+  </body>
+</html>
+{% endblock %}

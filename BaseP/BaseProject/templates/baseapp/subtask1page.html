@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends "../Base.html" %}
+{% block exit_block %}
+
+{% load static %}
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<h3> عنوان وظیفه مرتبط: </h3>
+<pre class="tab"><h3><em>                                <u>{{task.task_name}}</u> </em></h3>
+
+<h2> عنوان زیر وظیفه:  </h2>
+<pre class="tab"><h3><em>                                <u>{{subtask1.subtask1_name}}</u> </em></h3>
+
+<h2> تجربیات مرتبط: </h2>
+{% if properties %}
+   {% for property in properties %}
+      {% if property.related_subtask1 == subtask1 %}
+
+       <pre class="tab"><h3><em>                         <u>{{property.experience}}</u> </em></h3>
+
+      {% if perms.baseapp.change_properties %}
+           {% if property.amendment_condition == False %}
+       <h5> <a href = "{% url 'baseapp:property_improvement' task_id=task.task_id subtask1_id=subtask1.subtask1_id id=property.id %}"> بررسی، تایید، رد، امتیازدهی و بروزرسانی تجربه </a> </h5>
+           {% endif %}
+      {% endif %}
+
+
+      {% endif %}
+   {% endfor %}
+{% endif %}
+
+  <h2> <a href = "{% url 'baseapp:tasks_properties' task_id=task.task_id subtask1_id=subtask1.subtask1_id %}"> ثبت تجربه جدید </a> </h2>
+  <br>
+  <h3> <a href = "{% url 'baseapp:taskdetail' task.task_id  %}"> لیست زیر تسک ها </a> </h3>
+  <h3> <a href = "{% url 'baseapp:tasks'  %}"> لیست تسک ها </a> </h3>
+
+  <h2> <a href = "{% url 'baseapp:new_questions' task_id=task.task_id subtask1_id=subtask1.subtask1_id %}"> ثبت سوال جدید </a> </h2>
+
+
+  </body>
+</html>
+{% endblock %}

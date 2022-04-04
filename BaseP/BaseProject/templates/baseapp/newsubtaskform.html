@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "../Base.html" %}
+{% block exit_block %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <div class="notations" dir="rtl">
+  <h3><em>  امتیاز ثبت زیروظیفه (subtask) جدید شامل موارد زیر است: </em></h3>
+  <h4> تشخیص صحیح محل قرارگیری و رعایت تقدم و تاخر </h4>
+  <h4> انتخاب عنوان صحیح و جامع </h4>
+  <h4> تشخیص و تعیین دقیق مسئول مرتبط </h4>
+  <h4> تشخیص و تعیین دقیق عواقب ناشی از انجام ناصحیح وظیفه </h4>
+  </div>
+
+    <div class="newform">
+      <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+    {% if perms.baseapp.change_subtasks1 %}
+
+ <h3> آیا این تجربه پیشتر در گنجینه وجود داشته است؟ </h3>
+          <lable for="duplicated"> تکراری است </lable>
+          <input id="duplicated" type="radio" name="repetition_check" value="repeated" required>
+<br>
+          <lable for="new"> جدید است </lable>
+          <input id="new" type="radio" name="repetition_check" value="new">
+<br>
+<br>
+ <h3> اهمیت این تجربه را چگونه ارزیابی میکنید؟ </h3>
+          <lable for="human"> مرتبط با سلامت کارکنان </lable>
+          <input id="human" type="radio" name="nam" value="{{ property_score }}">
+<br>
+          <lable for="equipment"> مرتبط با سلامت تجهیز </lable>
+          <input id="equipment" type="radio" name="nam" value="">
+<br>
+          <lable for="process"> مرتبط با فرآیند </lable>
+          <input id="process" type="radio" name="nam" value="">
+<br>
+    {% endif %}
+        <input type="submit" value=" ثبت و بروزرسانی ">
+    </div>
+  </body>
+</html>
+{% endblock %}

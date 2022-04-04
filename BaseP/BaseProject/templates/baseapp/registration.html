@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<!--  {% if registered %}
+        <h2> Thank you </h2>
+    {% else %}    -->
+        <h1> Register here </h1>
+         <form enctype="multipart/form-data" method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <input type="submit" name="" value="Register">
+         </form>
+    {% endif %}
+  </body>
+</html>

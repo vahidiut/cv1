@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "../Base.html" %}
+{% block exit_block %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div class="newform">
+
+      <form method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+
+        <input type="submit" value="ثبت">
+
+    </div>
+  </body>
+</html>
+{% endblock %}
